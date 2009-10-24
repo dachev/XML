@@ -1,0 +1,15 @@
+<html>
+<head runat="server">
+    <title>Untitled Page</title>
+    <script src="http://static.ak.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <fb:user-status uid="0000000"></fb:user-status>
+            <asp:contentplaceholder fb:id="MainContentPlaceHolder" runat="server"></asp:contentplaceholder>
+        </div>
+    </form>
+    <script type="text/javascript"></script>
+</body>
+</html>

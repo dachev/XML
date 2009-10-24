@@ -1,0 +1,15 @@
+{
+    "name"  : "xml",
+    "author": {
+        "name"  : "Blagovest Dachev",
+        "email" : "blago@dachev.com",
+	"url"   : "http://www.dachev.com"
+    },
+    "dependencies" : ["narwhal"],
+    "contributors" : [],
+    "license"      : {
+        "name" : "GPL 2.0",
+        "url"  : "http://www.gnu.org/licenses/gpl-2.0.html"
+    },
+    "keywords"     : ["xml", "dom", "sax", "parse"]
+}
