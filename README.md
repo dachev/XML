@@ -26,6 +26,8 @@ TODO
 
 * Simple interface: Use JS wrapper object for the document returned by DOM parsing methods
 
+* Documentation
+
 * Create more test cases
 
 
