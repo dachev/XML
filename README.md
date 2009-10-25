@@ -16,15 +16,15 @@ Status
 
 * Full interface: at this time, just a direct export of Java's XML interfaces.
 
-* Simple interface: SAX paring is complete. See examples below.
+* Simple interface: DOM and SAX parsing are complete. See examples below.
 
 
 TODO
 -------------------------------------
 
-* Full interface: Redesigned to an API that can be supported across different engines. Also, no native types should be exposed.
+* Full interface: Redesign the API so that it can be supported across different engines. Also, no native types should be exposed.
 
-* Simple interface: Create methods for simple DOM parsing
+* Simple interface: Use JS wrapper object for Document
 
 * Create more test cases
 
