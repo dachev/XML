@@ -24,7 +24,7 @@ TODO
 
 * Full interface: Redesign the API so that it can be supported across different engines. Also, no native types should be exposed.
 
-* Simple interface: Use JS wrapper object for Document
+* Simple interface: Use JS wrapper object for the document returned by DOM parsing methods
 
 * Create more test cases
 
