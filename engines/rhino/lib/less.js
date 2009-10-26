@@ -1,71 +1,6 @@
 var more = require('more').xml;
 
 /* auxiliary functions and vars */
-function extend() {
-	// copy reference to target object
-	var target = arguments[0] || {}, i = 1, length = arguments.length, deep = false, options, name, src, copy;
-	
-	// Handle a deep copy situation
-	if ( typeof target === "boolean" ) {
-		deep = target;
-		target = arguments[1] || {};
-		// skip the boolean and the target
-		i = 2;
-	}
-	
-	// Handle case when target is a string or something (possible in deep copy)
-	if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
-		target = {};
-	}
-	
-	// extend jQuery itself if only one argument is passed
-	if ( length === i ) {
-		target = this;
-		--i;
-	}
-	
-	for ( ; i < length; i++ ) {
-		// Only deal with non-null/undefined values
-		if ( (options = arguments[ i ]) != null ) {
-			// Extend the base object
-			for ( name in options ) {
-				src = target[ name ];
-				copy = options[ name ];
-				
-				// Prevent never-ending loop
-				if ( target === copy ) {
-					continue;
-				}
-				
-				// Recurse if we're merging object values
-				if ( deep && copy && typeof copy === "object" && !copy.nodeType ) {
-					var clone;
-					
-					if ( src ) {
-						clone = src;
-					} else if ( jQuery.isArray(copy) ) {
-						clone = [];
-					} else if ( jQuery.isObject(copy) ) {
-						clone = {};
-					} else {
-						clone = copy;
-					}
-					
-					// Never move original objects, clone them
-					target[ name ] = jQuery.extend( deep, clone, copy );
-					
-					// Don't bring in undefined values
-				} else if ( copy !== undefined ) {
-					target[ name ] = copy;
-				}
-			}
-		}
-	}
-	
-	// Return the modified object
-	return target;
-}
-
 function each(object, callback, args) {
     var name, i = 0, length = object.length;
 
@@ -113,6 +48,7 @@ function addMethod(object, name, fn){
     };
 }
 
+/* simple interface implementation */
 function Attributes(attributes) {
 	addMethod(this, 'getIndex', function(qName) {
 		return attributes.getIndex(qName);
@@ -165,7 +101,6 @@ function Locator(locator) {
 }
 
 
-/* simple interface implementation */
 var saxParserFeatures = [
 	'http://xml.org/sax/features/external-general-entities',
 	'http://xml.org/sax/features/external-parameter-entities',
@@ -305,19 +240,19 @@ var handlerAdapters = {
 }
 
 function SAXHandler(settings) {
-	var saxHandler = {};
+	var saxHandlers = {};
 	
 	each(handlerAdapters, function(iface, methods) {
 		each(methods, function(name, method) {
 			if (settings.handlers[name] && typeof settings.handlers[name] === 'function') {
-				saxHandler[name] = function () {
+				saxHandlers[name] = function () {
 					handlerAdapters[iface][name].apply(settings.handlers, arguments);
 				};
 			}
 		});
 	});
 	
-	return new JavaAdapter(more.org.xml.sax.helpers.DefaultHandler, saxHandler);
+	return new JavaAdapter(more.org.xml.sax.helpers.DefaultHandler, saxHandlers);
 }
 
 function parseFileDOM(path, errorHandler)   {
@@ -448,7 +383,7 @@ function parseStringSAX(string, settings) {
     }
 }
 
-/* simple interface declaration */
+/* simple interface declaration and export */
 var xml = {
     dom: {
         parse : {
@@ -464,7 +399,7 @@ var xml = {
     }
 };
 
-/* full interface definition */
+
 exports.xml = xml;
 
 
